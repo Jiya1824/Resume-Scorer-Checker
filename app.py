@@ -1,4 +1,4 @@
-
+c
 import base64
 import streamlit as st
 import os
@@ -50,7 +50,7 @@ if uploaded_file is not None:
 
 submit1 = st.button("Tell Me About the Resume")
 
-#submit2 = st.button("How Can I Improvise my Skills")
+submit2 = st.button("How Can I Improvise my Skills")
 
 submit3 = st.button("Percentage match")
 
@@ -58,6 +58,12 @@ input_prompt1 = """
  You are an experienced Technical Human Resource Manager,your task is to review the provided resume against the job description. 
   Please share your professional evaluation on whether the candidate's profile aligns with the role. 
  Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+"""
+
+input_prompt2 = """
+You are an experienced career coach and industry mentor. Your task is to analyze the uploaded resume based on the given job description. 
+Provide actionable and specific suggestions on how the candidate can improve their skills and qualifications to better align with the job role. 
+Include recommendations for certifications, technical skills, soft skills, tools, or experiences they should acquire to increase their chances of getting hired for this position.
 """
 
 input_prompt3 = """
@@ -75,6 +81,15 @@ if submit1:
     else:
         st.write("Please uplaod the resume")
 
+if submit2:
+    if uploaded_file is not None:
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt2, pdf_content, input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.write("Please upload the resume")
+        
 elif submit3:
     if uploaded_file is not None:
         pdf_content=input_pdf_setup(uploaded_file)
@@ -87,7 +102,6 @@ elif submit3:
 
 
    
-
 
 
 
